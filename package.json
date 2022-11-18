@@ -1,0 +1,35 @@
+{
+  "name": "@momsfriendlydevco/embed-gdocs",
+  "version": "0.0.0",
+  "description": "Simple, agnostic component to embed a Google Doc into a webpage",
+  "main": "dist/embed-gdocs.js",
+  "module": "dist/module.js",
+  "source": "src/embed-gdocs.js",
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/@momsfriendlydevco/embed-gdocs.git"
+  },
+  "keywords": [
+    "google",
+    "docs",
+    "gdocs",
+    "embed"
+  ],
+  "author": "Matt Carter <m@ttcarter.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/@momsfriendlydevco/embed-gdocs/issues"
+  },
+  "homepage": "https://github.com/@momsfriendlydevco/embed-gdocs#readme",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@babel/plugin-proposal-pipeline-operator": "^7.18.9",
+    "express": "^4.18.2",
+    "parcel": "^2.8.0"
+  }
+}
