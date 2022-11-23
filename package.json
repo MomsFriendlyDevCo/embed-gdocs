@@ -6,8 +6,9 @@
   "module": "dist/module.js",
   "source": "src/embed-gdocs.js",
   "scripts": {
-    "watch": "parcel watch",
-    "build": "parcel build"
+    "dev": "node test/server.mjs",
+    "build": "parcel build",
+    "watch": "parcel watch"
   },
   "repository": {
     "type": "git",
