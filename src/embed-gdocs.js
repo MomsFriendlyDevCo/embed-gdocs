@@ -30,7 +30,9 @@ window.embedGDoc = function embedGdoc(options) {
 		.then(html => {
 			let doc = document.createElement('div')
 			doc.setHTML(html); // Splat HTML into temporary div
-			doc = doc.querySelector('.doc-content'); // Narrow down to just the contents
+
+			if (settings.fixContentTrim) // Narrow down to just the contents
+				doc = doc.querySelector('.doc-content');
 
 			// fixWidth and/or fixPadding {{{
 			if (settings.fixWidth || settings.fixPadding) {
