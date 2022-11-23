@@ -67,6 +67,21 @@ window.embedGDoc = function embedGdoc(options) {
 					});
 			}
 			// }}}
+			// fixImageTitleAsLink {{{
+			if (settings.fixImageTitleAsLink) {
+				doc.querySelectorAll('img[title]')
+					|> els => Array.from(els)
+					.filter(el => /^https?:\/\//.test(el.getAttribute('title')))
+					.forEach(el => {
+						let wrapper = document.createElement('a');
+						wrapper.setAttribute('href', el.getAttribute('title'));
+						if (settings.fixLinkTargets) wrapper.setAttribute('target', '_blank');
+
+						el.replaceWith(wrapper);
+						wrapper.replaceChildren(el);
+					})
+			}
+			// }}}
 
 			embedEl.replaceChildren(doc);
 		})
