@@ -1,3 +1,17 @@
+/**
+* Embed a Google-Docs document within a webpage
+* @param {Object} options Options to configure behaviour
+* @param {string|HTMLElement} options.selector Either the DOM node to replace or a selector to use
+* @param {string} options.url The Google Docs published URL to embed - this generally ends in `/pub?embedded=true`
+* @param {Object} [options.urlOptions] Additional Fetch options when retrieving the document from the `url`
+* @param {boolean} [options.fixContentTrim=true] Remove the outer wrapping of the element and just use the embedded content
+* @param {boolean} [options.fixWidth=true] Remove page width restrictions
+* @param {boolean} [options.fixPadding=true] Remove page padding
+* @param {boolean} [options.fixLinkTargets=true] Make all links open in a new tab instead of replacing the current one
+* @param {boolean} [options.fixLinkShorten=true] Remove Google tracking URL prefix from links
+* @param {boolean} [options.fixImageTitleAsLink=true] If an image "alternative text" (actually the `title` attribute) looks like a link make the image linkable - this is to fix how Google Docs weirdly handles image linking
+*
+*/
 window.embedGDoc = function embedGdoc(options) {
 	let settings = {
 		selector: null,
