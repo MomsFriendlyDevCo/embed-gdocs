@@ -8,16 +8,21 @@ window.embedGDoc = function embedGdoc(options) {
 				'Accept': 'text/html',
 			},
 		},
+		fixContentTrim: true,
 		fixWidth: true,
 		fixPadding: true,
 		fixLinkTargets: true,
 		fixLinkShorten: true,
+		fixImageTitleAsLink: true,
 		...options,
 	};
 	if (!settings.selector) throw new Error('Selector must be specified');
 	if (!settings.url) throw new Error('URL must be specified');
 
-	let embedEl = document.querySelector(settings.selector);
+	let embedEl = typeof settings.selector == 'string'
+		? document.querySelector(settings.selector)
+		: settings.selector;
+
 	if (!embedEl) throw new Error(`Cannot find selector "${settings.selector} to embed GDoc`);
 
 	return fetch(settings.url, settings.urlOptions)
