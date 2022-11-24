@@ -35,7 +35,7 @@
     if (!embedEl) throw new Error(`Cannot find selector "${settings.selector} to embed GDoc`);
     return fetch(settings.url, settings.urlOptions).then((res)=>res.text()).then((html)=>{
         let doc = document.createElement("div");
-        doc.setHTML(html); // Splat HTML into temporary div
+        typeof doc.setHTML === "function" ? doc.setHTML(html) : doc.innerHTML = html; // Splat HTML into temporary div
         if (settings.fixContentTrim) // Narrow down to just the contents
         doc = doc.querySelector(".doc-content");
         // fixWidth and/or fixPadding {{{

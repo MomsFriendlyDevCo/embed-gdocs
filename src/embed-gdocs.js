@@ -42,8 +42,8 @@ window.embedGDoc = function embedGdoc(options) {
 	return fetch(settings.url, settings.urlOptions)
 		.then(res => res.text())
 		.then(html => {
-			let doc = document.createElement('div')
-			doc.setHTML(html); // Splat HTML into temporary div
+			let doc = document.createElement('div');
+			(typeof doc.setHTML === 'function') ? doc.setHTML(html) : doc.innerHTML = html; // Splat HTML into temporary div
 
 			if (settings.fixContentTrim) // Narrow down to just the contents
 				doc = doc.querySelector('.doc-content');
