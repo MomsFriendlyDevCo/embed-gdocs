@@ -8,6 +8,24 @@ Features:
 * Included fixes for common issues with embeds (various style fixes, unminify links, retarget links to open in other tags)
 
 
+Options are:
+
+| Option                | Type                     | Default | Description                                                                                                                                                              |
+|-----------------------|--------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `selector`            | `String` / `HTMLElement` |         | Either the DOM node to replace or a selector to use                                                                                                                      |
+| `url`                 | `String`                 |         | The Google Docs published URL to embed - this generally ends in `/pub?embedded=true`                                                                                     |
+| `urlOptions`          | `Object`                 |         | Additional Fetch options when retrieving the document from the `url`                                                                                                     |
+| `keepStyle`           | `Boolean`                | `true`  | Keep the source document style, if false this removes the style completely                                                                                               |
+| `fixContentTrim`      | `Boolean`                | `true`  | Remove the outer wrapping of the element and just use the embedded content                                                                                               |
+| `fixWidth`            | `Boolean`                | `true`  | Remove page width restrictions                                                                                                                                           |
+| `fixParaMargins`      | `Boolean`                | `true`  | Add slight margin to paragraphs                                                                                                                                          |
+| `fixTableWidth`       | `Boolean`                | `true`  | Remove table width restrictions                                                                                                                                          |
+| `fixPadding`          | `Boolean`                | `true`  | Remove page padding                                                                                                                                                      |
+| `fixLinkTargets`      | `Boolean`                | `true`  | Make all links open in a new tab instead of replacing the current one                                                                                                    |
+| `fixLinkShorten`      | `Boolean`                | `true`  | Remove Google tracking URL prefix from links                                                                                                                             |
+| `fixImageTitleAsLink` | `Boolean`                | `true`  | If an image "alternative text" (actually the `title` attribute) looks like a link make the image linkable - this is to fix how Google Docs weirdly handles image linking |
+
+
 ```html
 <html>
 <head>
