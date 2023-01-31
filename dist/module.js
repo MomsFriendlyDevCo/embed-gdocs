@@ -35,6 +35,9 @@ var $ddc53a4b3d7d8296$exports = {};
         fixImageTitleAsLink: true,
         ...options
     };
+    /**
+  * Shiv wrapper as setHTML doesn't seem to be used everywhere
+  */ let setHtml = (el, html)=>el.setHTML ? el.setHTML(html) : el.innerHTML = html;
     if (!settings.selector) throw new Error("Selector must be specified");
     if (!settings.url) throw new Error("URL must be specified");
     let embedEl = typeof settings.selector == "string" ? document.querySelector(settings.selector) : settings.selector;
@@ -42,7 +45,7 @@ var $ddc53a4b3d7d8296$exports = {};
     return fetch(settings.url, settings.urlOptions).then((res)=>res.text()).then((html)=>{
         let sourceDoc = document.createElement("div");
         let styleRules = []; // Additional style rules to prepend when done
-        sourceDoc.setHTML(html); // Splat HTML into temporary div
+        setHtml(sourceDoc, html); // Splat HTML into temporary div
         let doc = settings.fixContentTrim ? sourceDoc.querySelector(".doc-content") // Narrow down to just the contents
          : sourceDoc;
         if (settings.keepStyle) {
@@ -93,7 +96,7 @@ var $ddc53a4b3d7d8296$exports = {};
             // Append any override styles we have
             let styleSheet = document.createElement("style");
             styleSheet.setAttribute("type", "text/css");
-            styleSheet.setHTML(styleRules.join("\n"));
+            setHtml(styleSheet, styleRules.join("\n"));
             doc.prepend(styleSheet);
         }
         embedEl.replaceChildren(doc);
