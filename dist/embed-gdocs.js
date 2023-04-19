@@ -49,7 +49,6 @@
          : sourceDoc;
         if (settings.keepStyle) {
             let style = sourceDoc.querySelector('style[type="text/css"]');
-            console.log("Reinject style", style);
             doc.prepend(style);
         }
         // fixWidth and/or fixPadding {{{
@@ -74,7 +73,8 @@
                 if (settings.fixLinkTargets) el.setAttribute("target", "_blank");
                 // fixLinkShorten
                 if (settings.fixLinkShorten) el.setAttribute("href", el.getAttribute("href").replace(/^https:\/\/www\.google\.com\/url\?q=(.*?)&.*$/, "$1") // Remove `&...` slush from GitHub URLs
-                .replace(/^https:\/\/www\.google\.com\/url\?q=/, "") // Rewrite all other URLs
+                .replace(/^https:\/\/www\.google\.com\/url\?q=/, "") // Rewrite all other URLs,
+                .replace(/^(.+)$/, (link)=>unescape(link)) // De-encode URL characters like '#'
                 );
             });
         }
