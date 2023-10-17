@@ -1,6 +1,8 @@
 /**
 * Embed a Google-Docs document within a webpage
+*
 * @param {Object} options Options to configure behaviour
+*
 * @param {String|HTMLElement} options.selector Either the DOM node to replace or a selector to use
 * @param {String} options.url The Google Docs published URL to embed - this generally ends in `/pub?embedded=true`
 * @param {Object} [options.urlOptions] Additional Fetch options when retrieving the document from the `url`
@@ -13,6 +15,9 @@
 * @param {Boolean} [options.fixLinkTargets=true] Make all links open in a new tab instead of replacing the current one
 * @param {Boolean} [options.fixLinkShorten=true] Remove Google tracking URL prefix from links
 * @param {Boolean} [options.fixImageTitleAsLink=true] If an image "alternative text" (actually the `title` attribute) looks like a link make the image linkable - this is to fix how Google Docs weirdly handles image linking
+*
+* @param {Function} [options.onLoad] Called as `(html:String)` when the HTML has been loaded, expected to return the mutated input
+* @param {Function} [options.onMount] Called as `(el:DomElement)` when the Dom element has been created but has not yet been added into the DOM, can mutate the input element
 *
 */ window.embedGDoc = function embedGdoc(options) {
     let settings = {
@@ -32,6 +37,8 @@
         fixLinkTargets: true,
         fixLinkShorten: true,
         fixImageTitleAsLink: true,
+        onLoad: (html)=>html,
+        onMount: (el)=>null,
         ...options
     };
     /**
@@ -41,7 +48,7 @@
     if (!settings.url) throw new Error("URL must be specified");
     let embedEl = typeof settings.selector == "string" ? document.querySelector(settings.selector) : settings.selector;
     if (!embedEl) throw new Error(`Cannot find selector "${settings.selector} to embed GDoc`);
-    return fetch(settings.url, settings.urlOptions).then((res)=>res.text()).then((html)=>{
+    return fetch(settings.url, settings.urlOptions).then((res)=>res.text()).then((html)=>settings.onLoad(html)).then((html)=>{
         let sourceDoc = document.createElement("div");
         let styleRules = []; // Additional style rules to prepend when done
         setHtml(sourceDoc, html); // Splat HTML into temporary div
@@ -98,6 +105,7 @@
             setHtml(styleSheet, styleRules.join("\n"));
             doc.prepend(styleSheet);
         }
+        settings.onMount(doc);
         embedEl.replaceChildren(doc);
     });
 };
