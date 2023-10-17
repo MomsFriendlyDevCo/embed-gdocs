@@ -1,6 +1,6 @@
 {
   "name": "@momsfriendlydevco/embed-gdocs",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Simple, agnostic component to embed a Google Doc into a webpage",
   "main": "dist/embed-gdocs.js",
   "module": "dist/module.js",
