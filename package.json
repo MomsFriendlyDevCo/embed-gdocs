@@ -2,14 +2,19 @@
   "name": "@momsfriendlydevco/embed-gdocs",
   "version": "1.0.5",
   "description": "Simple, agnostic component to embed a Google Doc into a webpage",
-  "main": "dist/embed-gdocs.js",
-  "module": "dist/module.js",
-  "source": "src/embed-gdocs.js",
   "scripts": {
-    "build": "parcel build",
+    "build": "concurrently 'npm:build:*'",
+    "build:esm": "esbuild --platform=browser --format=esm --bundle lib/embed-gdocs.js --outfile=dist/embed-gdocs.js --minify --sourcemap",
     "dev": "nodemon",
-    "serve": "node test/server.mjs",
-    "watch": "parcel watch"
+    "lint": "eslint lib",
+    "serve": "node test/server.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "browser": "./dist/embed-gdocs.esm.js",
+      "default": "./lib/embed-gdocs.js"
+    }
   },
   "repository": {
     "type": "git",
@@ -29,11 +34,23 @@
   "homepage": "https://github.com/MomsFriendlyDevCo/embed-gdocs#readme",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "devDependencies": {
-    "@babel/core": "^7.20.2",
-    "@babel/plugin-proposal-pipeline-operator": "^7.18.9",
+    "@momsfriendlydevco/eslint-config": "^1.0.9",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.20.1",
+    "eslint": "^8.57.0",
     "express": "^4.18.2",
-    "nodemon": "^2.0.22",
-    "parcel": "^2.8.0"
+    "nodemon": "^2.0.22"
+  },
+  "eslintConfig": {
+    "extends": "@momsfriendlydevco",
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 13,
+      "sourceType": "module"
+    }
   },
   "nodemonConfig": {
     "exec": "npm run serve",

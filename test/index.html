@@ -1,8 +1,9 @@
 <html>
 <head>
 	<title>@MomsFriendlyDevCo/Embed-GDocs Example</title>
-	<script src="/dist/embed-gdocs.js"></script>
-	<script>
+	<script type="module">
+	import embedGDoc from '/dist/embed-gdocs.js';
+
 	window.addEventListener('load', ()=> {
 		embedGDoc({
 			selector: '#gdoc',
