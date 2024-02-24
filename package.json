@@ -5,16 +5,20 @@
   "scripts": {
     "build": "concurrently 'npm:build:*'",
     "build:esm": "esbuild --platform=browser --format=esm --bundle lib/embed-gdocs.js --outfile=dist/embed-gdocs.js --minify --sourcemap",
+    "build:cjs": "esbuild --platform=browser --format=cjs --bundle lib/embed-gdocs.js --outfile=dist/embed-gdocs.cjs --minify --sourcemap",
     "dev": "nodemon",
     "lint": "eslint lib",
+    "test": "mocha test/index.js",
     "serve": "node test/server.js"
   },
   "type": "module",
   "exports": {
     ".": {
-      "browser": "./dist/embed-gdocs.esm.js",
-      "default": "./lib/embed-gdocs.js"
-    }
+      "browser": "./dist/embed-gdocs.js",
+      "default": "./lib/index.js"
+    },
+    "clean": "./lib/clean.js",
+    "html": "./lib/html.js"
   },
   "repository": {
     "type": "git",
@@ -35,10 +39,12 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "devDependencies": {
     "@momsfriendlydevco/eslint-config": "^1.0.9",
+    "chai": "^5.1.0",
     "concurrently": "^8.2.2",
     "esbuild": "^0.20.1",
     "eslint": "^8.57.0",
     "express": "^4.18.2",
+    "mocha": "^10.3.0",
     "nodemon": "^2.0.22"
   },
   "eslintConfig": {
@@ -55,11 +61,15 @@
   "nodemonConfig": {
     "exec": "npm run serve",
     "events": {
+      "start": "npm run build",
       "restart": "npm run build"
     },
     "watch": [
-      "src/",
+      "lib/",
       "test/"
     ]
+  },
+  "optionalDependencies": {
+    "jsdom": "^24.0.0"
   }
 }

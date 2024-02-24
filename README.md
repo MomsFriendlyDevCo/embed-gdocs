@@ -8,6 +8,40 @@ Features:
 * Included fixes for common issues with embeds (various style fixes, unminify links, retarget links to open in other tags)
 
 
+```html
+<html>
+<head>
+	<title>@MomsFriendlyDevCo/Embed-GDocs Example</title>
+	<script src="/dist/embed-gdocs.js"></script>
+	<script type="module">
+	import embedGDoc from '/dist/embed-gdocs.js';
+
+	window.addEventListener('load', ()=> {
+		embedGDoc({
+			selector: '#gdoc',
+			url: 'https://docs.google.com/document/d/e/2PACX-1vTasmjm8_rI_tzzzMs0xl5AhjafHXCPs33uyq6VShbMepnlkumS9rDBkxbEs0AAoAtdMRm-dmoGXxbR/pub?embedded=true',
+		});
+	});
+	</script>
+</head>
+<body>
+	<div id="gdoc"></div>
+</body>
+</html>
+```
+
+
+API
+===
+
+embedGDoc(url, options)
+-----------------------
+```javascript
+import embedGDoc from '@momsfriendlydevco/embed-gdoc';
+```
+
+Insert a Google document within a given element.
+
 Options are:
 
 | Option                | Type                     | Default        | Description                                                                                                                                                              |
@@ -28,22 +62,33 @@ Options are:
 | `onMount`             | `Function`               | `el => null`   | Called as `(el:DomElement)` when the Dom element has been created but has not yet been added into the DOM, can mutate the input element                                  |
 
 
-```html
-<html>
-<head>
-	<title>@MomsFriendlyDevCo/Embed-GDocs Example</title>
-	<script src="/dist/embed-gdocs.js"></script>
-	<script>
-	window.addEventListener('load', ()=> {
-		embedGDoc({
-			selector: '#gdoc',
-			url: 'https://docs.google.com/document/d/e/2PACX-1vTasmjm8_rI_tzzzMs0xl5AhjafHXCPs33uyq6VShbMepnlkumS9rDBkxbEs0AAoAtdMRm-dmoGXxbR/pub?embedded=true',
-		});
-	});
-	</script>
-</head>
-<body>
-	<div id="gdoc"></div>
-</body>
-</html>
+clean(html, options)
+--------------------
+```javascript
+import {clean} from '@momsfriendlydevco/embed-gdoc';
+// OR
+import clean from '@momsfriendlydevco/embed-gdoc/clean';
 ```
+
+Take input HTML and return a "clean" version of the same fixing various issues.
+This is the actual worker of the other supplied functions.
+
+Options are inherited from `embedGDoc()` but also include:
+
+| Option          | Type       | Default                  | Description                 |
+|-----------------|------------|--------------------------|-----------------------------|
+| `createElement` | `Function` | `document.createElement` | How to create DOM fragments |
+
+
+html(html, options)
+-------------------
+```javascript
+import {html} from '@momsfriendlydevco/embed-gdoc';
+// OR
+import html from '@momsfriendlydevco/embed-gdoc/html';
+```
+
+Similar to `embedGDoc()` but return only the resulting HTML.
+This function is used mainly for backend scripts which wish to clean up the resulting HTML before serving it directly.
+
+Options are inherited from `embedGDoc()` + `clean()`.
