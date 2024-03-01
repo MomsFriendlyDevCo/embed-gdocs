@@ -17,8 +17,8 @@
       "browser": "./dist/embed-gdocs.js",
       "default": "./lib/index.js"
     },
-    "clean": "./lib/clean.js",
-    "html": "./lib/html.js"
+    "./clean": "./lib/clean.js",
+    "./html": "./lib/html.js"
   },
   "repository": {
     "type": "git",
