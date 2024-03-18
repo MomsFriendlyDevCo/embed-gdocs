@@ -18,7 +18,8 @@
       "default": "./lib/index.js"
     },
     "./clean": "./lib/clean.js",
-    "./html": "./lib/html.js"
+    "./html": "./lib/html.js",
+    "./es6": "./lib/embed-gdocs.js"
   },
   "repository": {
     "type": "git",
