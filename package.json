@@ -1,6 +1,6 @@
 {
   "name": "@momsfriendlydevco/embed-gdocs",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "Simple, agnostic component to embed a Google Doc into a webpage",
   "scripts": {
     "build": "concurrently 'npm:build:*'",
